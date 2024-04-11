@@ -1,0 +1,21 @@
+import { Error } from "mongoose";
+
+class apiError extends Error{
+    constructor(statusCode,message="something went wrong",errors=[],stack="")
+    {
+        super()
+        this.message=message,
+        this.statusCode=statusCode,
+        this.data=null,
+        this.success=false,
+        this.errors=errors
+
+        if(stack){
+            this.stack=stack
+        }
+        else{
+            Error.captureStackTrace(this,this.constructor)
+        }
+    }
+}
+export {apiError}
